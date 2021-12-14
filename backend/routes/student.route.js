@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import  express from 'express';
+import cors from 'cors';
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.route ('/create-student').post((req, res, next) => {
 });
 
 // READ Students
-router.route('/').get((req, res) => {
+router.route('/').get((req, res, next) => {
   studentSchema.find((error, data) => {
     if (error) {
       return next(error)
@@ -30,7 +31,7 @@ router.route('/').get((req, res) => {
 })
 
 // Get Single Student
-router.route('/edit-student/:id').get((req, res) => {
+router.route('/edit-student/:id').get((req, res, next) => {
   studentSchema.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)
