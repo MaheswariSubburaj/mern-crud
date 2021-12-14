@@ -1,15 +1,15 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 import dbConfig from './database/db.js';
 
 // Express Route
 import studentRoute from './routes/student.route.js';
+import usersRoute from './routes/users.route.js';
 
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;
-mongoose.connect(dbConfig.db, {
+mongoose.connect(dbConfig, {
   useNewUrlParser: true
 }).then(() => {
   console.log('Database sucessfully connected!')
@@ -20,12 +20,15 @@ mongoose.connect(dbConfig.db, {
 )
 
 const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({
   extended: true
 }));
 app.use(cors());
+app.use('/', (req, res) => res.json({ msg: 'Helo' }))
 app.use('/students', studentRoute)
+app.use('/users', usersRoute)
 
 
 // PORT
@@ -36,11 +39,12 @@ const server = app.listen(port, () => {
 
 // 404 Error
 app.use((req, res, next) => {
-  next(createError(404));
+  next();
 });
 
 app.use(function (err, req, res, next) {
   console.error(err.message);
   if (!err.statusCode) err.statusCode = 500;
   res.status(err.statusCode).send(err.message);
+  res.json(err.message)
 });
