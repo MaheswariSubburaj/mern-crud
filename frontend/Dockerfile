@@ -18,12 +18,12 @@ ARG BUILD_DATE=
 ARG VERSION=
 ARG SOURCE=https://github.com/maheswarisubburaj/mern-web
 
-LABEL com.connectusglobal.mern-web.revision=$GIT_COMMIT
-LABEL com.connectusglobal.mern-web.created=$BUILD_DATE
-LABEL com.connectusglobal.mern-web.source=$SOURCE
-LABEL com.connectusglobal.mern-web.version=$VERSION
-LABEL com.connectusglobal.mern-web.vendor="Maheswari"
-LABEL com.connectusglobal.mern-web.authors="Maheswari <maheswari.ksubburaj@gmail.com"
+LABEL com.Maheswari.mern-web.revision=$GIT_COMMIT
+LABEL com.Maheswari.mern-web.created=$BUILD_DATE
+LABEL com.Maheswari.mern-web.source=$SOURCE
+LABEL com.Maheswari.mern-web.version=$VERSION
+LABEL com.Maheswari.mern-web.vendor="Maheswari"
+LABEL com.Maheswari.mern-web.authors="Maheswari <maheswari.ksubburaj@gmail.com"
 
 # Update the system
 RUN apk --no-cache -U upgrade
