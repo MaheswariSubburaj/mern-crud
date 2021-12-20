@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  mern-api:
+    image: node:14
+    container_name: mern-api
+    working_dir: /home/node/api/
+    volumes:
+      - ./backend:/home/node/api
+    command: npm run start
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mern-api.rule=Host(`mern-api.docker.localhost`)"
+      - "traefik.http.services.mern-api.loadbalancer.server.port=4000"
+    networks:
+      - traefik
+  mern-web:
+    image: node:14
+    container_name: mern-web
+    working_dir: /home/node/web/
+    volumes:
+      - ./frontend:/home/node/web
+    command: npm run start
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mern-web.rule=Host(`mern.docker.localhost`)"
+      - "traefik.http.services.mern-web.loadbalancer.server.port=3000"
+networks:
+  traefik:
+    external: true
